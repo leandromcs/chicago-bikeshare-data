@@ -264,8 +264,8 @@ mean_trip /= len(trip_duration_list)
 
 lista = []
 
-for i in trip_duration_list:
-    lista.append(int(i))
+for linha in trip_duration_list:
+    lista.append(int(linha))
     trip_duration_list = lista
 
 lista_ordenada = sorted(trip_duration_list)
@@ -322,11 +322,19 @@ input("Press Enter to continue...")
 # TODO: Create a function to count user types without hardcoding the types
 # so we can use this function with a different kind of data.
 print("Will you face it?")
-answer = "no"
+answer = "yes"
 
 def count_items(column_list):
-    item_types = []
+    item_types = set(column_list)
     count_items = []
+
+    for item_type in item_types:
+        count = 0
+        for item in column_list:
+            if item == item_type:
+                count += 1
+        count_items.append(count)
+
     return item_types, count_items
 
 
