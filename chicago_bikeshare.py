@@ -325,6 +325,13 @@ print("Will you face it?")
 answer = "yes"
 
 def count_items(column_list):
+    """
+    Função que conta a quantidade de tipos dos itens sem tipos fixos
+    Args:
+        column_list: Lista contendo os dados de uma coluna
+    Returns:
+        Uma lista com os tipos de itens e uma lista com a quantidade de cada um dos tipos
+    """
     item_types = set(column_list)
     count_items = []
 
