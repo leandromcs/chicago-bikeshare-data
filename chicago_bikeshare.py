@@ -30,8 +30,8 @@ input("Press Enter to continue...")
 # TODO: Print the first 20 rows using a loop to identify the data.
 print("\n\nTASK 1: Printing the first 20 samples")
 
-for i in range(20):
-    print(data_list[i])
+for item in range(20):
+    print(data_list[item])
 
 # Let's change the data_list to remove the header from it.
 data_list = data_list[1:]
@@ -45,8 +45,8 @@ input("Press Enter to continue...")
 
 print("\nTASK 2: Printing the genders of the first 20 samples")
 
-for i in range(20):
-    print(data_list[i][6])
+for item in range(20):
+    print(data_list[item][6])
 
 # Cool! We can get the rows(samples) iterating with a for and the columns(features) by index.
 # But it's still hard to get a column in a list. Example: List with all genders
@@ -54,19 +54,19 @@ for i in range(20):
 input("Press Enter to continue...")
 # TASK 3
 # TODO: Create a function to add the columns(features) of a list in another list in the same order
-"""
-column_to_list: Função que cria uma lista com os dados de uma determinada coluna
-Args:
-    data: Lista completa a ser recebida
-    index: Posição referente a coluna
-Returns:
-    Uma lista com os dados de uma coluna
-"""
 def column_to_list(data, index):
+    """
+    Função que cria uma lista com os dados de uma determinada coluna
+    Args:
+        data: Lista completa a ser recebida
+        index: Posição referente a coluna
+    Returns:
+        Uma lista com os dados de uma coluna
+    """
     column_list = []
     # Tip: You can use a for to iterate over the samples, get the feature by index and append into a list
-    for i in data:
-        column_list.append(i[index])
+    for item in data:
+        column_list.append(item[index])
 
     return column_list
 
@@ -87,10 +87,10 @@ input("Press Enter to continue...")
 male = 0
 female = 0
 
-for i in data_list:
-    if i[6] == "Male":
+for item in data_list:
+    if item[6] == "Male":
         male += 1
-    elif i[6] == "Female":
+    elif item[6] == "Female":
         female += 1
 
 # Checking the result
@@ -106,21 +106,21 @@ input("Press Enter to continue...")
 # TASK 5
 # TODO: Create a function to count the genders. Return a list
 # Should return a list with [count_male, counf_female] (e.g., [10, 15] means 10 Males, 15 Females)
-"""
-count_gender: Função que conta a quantidade de gêneros contida em uma lista
-Args:
-    data_list: Lista completa a ser recebida
-Returns:
-    Uma lista com a contagem de gêneros da lista
-"""
 def count_gender(data_list):
+    """
+    Função que conta a quantidade de gêneros contida em uma lista
+    Args:
+        data_list: Lista completa a ser recebida
+    Returns:
+        Uma lista com a contagem de gêneros da lista
+    """
     male = 0
     female = 0
 
-    for i in data_list:
-        if i[6] == "Male":
+    for item in data_list:
+        if item[6] == "Male":
             male += 1
-        elif i[6] == "Female":
+        elif item[6] == "Female":
             female += 1
 
     return [male, female]
@@ -140,23 +140,19 @@ input("Press Enter to continue...")
 # TASK 6
 # TODO: Create a function to get the most popular gender and print the gender as string.
 # We expect to see "Male", "Female" or "Equal" as answer.
-"""
-most_popular_gender: Função que diz qual é o gênero mais comum na lista
-Args:
-    data_list: Lista completa a ser recebida
-Returns:
-    Uma string dizendo se o gênero mais comum é Homem, Mulher ou Igual
-"""
 def most_popular_gender(data_list):
+    """
+    Função que diz qual é o gênero mais comum na lista
+    Args:
+        data_list: Lista completa a ser recebida
+    Returns:
+        Uma string dizendo se o gênero mais comum é Homem, Mulher ou Igual
+    """
     answer = ""
     male = 0
     female = 0
 
-    for i in data_list:
-        if i[6] == "Male":
-            male += 1
-        elif i[6] == "Female":
-            female += 1
+    [male, female] = count_gender(data_list)
     
     if male > female:
         answer = "Male"
@@ -191,27 +187,32 @@ input("Press Enter to continue...")
 # TASK 7
 # TODO: Plot a similar graph for user_types. Make sure the legend is correct.
 print("\nTASK 7: Check the chart!")
-"""
-count_user_types: Função que conta a quantidade de usuários de cada tipo
-Args:
-    data_list: Lista completa a ser recebida
-Returns:
-    Uma lista com as contagens de tipo de usuário
-"""
 def count_user_types(data_list):
+    """
+    Função que conta a quantidade de usuários de cada tipo
+    Args:
+        data_list: Lista completa a ser recebida
+    Returns:
+        Uma lista com as contagens de tipo de usuário
+    """
     customer = 0
     subscriber = 0
+    dependent = 0
 
-    for i in data_list:
-        if i[5] == "Customer":
+    user_types = column_to_list(data_list, 5)
+
+    for user in user_types:
+        if user == "Customer":
             customer += 1
-        elif i[5] == "Subscriber":
+        elif user == "Subscriber":
             subscriber += 1
+        elif user == "Dependent":
+            dependent += 1
 
-    return [customer, subscriber]
+    return [customer, subscriber, dependent]
 
 user_types_list = column_to_list(data_list, -3)
-types = ["Customer", "Subscriber"]
+types = ["Customer", "Subscriber", "Dependent"]
 quantity = count_user_types(data_list)
 y_pos = list(range(len(types)))
 plt.bar(y_pos, quantity)
@@ -250,12 +251,12 @@ min_trip = int(trip_duration_list[0])
 
 #Calculo do Min, Max and Mean
 
-for i in trip_duration_list:
-    if int(i) < min_trip:
-        min_trip = int(i)
-    elif int(i) > max_trip:
-        max_trip = int(i)
-    mean_trip += int(i)    
+for item in trip_duration_list:
+    if int(item) < min_trip:
+        min_trip = int(item)
+    elif int(item) > max_trip:
+        max_trip = int(item)
+    mean_trip += int(item)    
 
 mean_trip /= len(trip_duration_list)
 
@@ -291,9 +292,7 @@ input("Press Enter to continue...")
 # TASK 10
 # Gender is easy because usually only have a few options. How about start_stations? How many options does it have?
 # TODO: Check types how many start_stations do we have using set()
-stations = []
-for i in data_list:
-    stations.append(i[3])
+stations = column_to_list(data_list, 3)
 
 user_types = set(stations)
 
